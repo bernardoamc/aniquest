@@ -27,7 +27,7 @@
                 <img src="<%= @current_user.picture %>" class="img-circle"/>
                 <%= link "Logout", to: auth_path(@conn, :delete), method: :delete, class: "btn btn-danger" %>
               <% else %>
-                <a class="btn btn-primary btn-sign-in" href="<%= auth_path(@conn, :index)%>">
+                <a id="btn-sign-in" class="btn btn-primary" href="<%= auth_path(@conn, :index)%>">
                   <i class="fa fa-google"></i>
                   Sign in with Google
                 </a>
