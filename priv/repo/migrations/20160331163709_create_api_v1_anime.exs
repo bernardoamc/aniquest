@@ -11,6 +11,6 @@ defmodule Aniquest.Repo.Migrations.CreateAPI.V1.Anime do
       timestamps
     end
 
-    create index(:animes, [:title_romaji])
+    create unique_index(:animes, [:title_romaji])
   end
 end

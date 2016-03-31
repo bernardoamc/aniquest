@@ -1,0 +1,29 @@
+<h3>Personal Information</h3>
+
+<p>
+  <strong>Name</strong><br />
+  <%= @current_user.name %>
+</p>
+
+
+<p>
+  <strong>Email</strong><br />
+  <%= @current_user.email %>
+</p>
+
+<p>
+  <strong>Picture</strong><br />
+  <%= @current_user.picture %>
+</p>
+
+<p>
+  <strong>Token</strong><br />
+  <%= @current_user.token || "No available token." %>
+</p>
+
+<p>
+  <strong>Token valid until</strong><br/>
+  <%= format_time(@current_user.token_valid_until) %>
+</p>
+
+<%= link "Generate New Token", to: token_path(@conn, :create), method: :post, class: "btn btn-danger" %>

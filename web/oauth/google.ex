@@ -29,7 +29,7 @@ defmodule Aniquest.GoogleOauth do
     OAuth2.Client.get_token!(client(), params)
   end
 
-  def get_user!(token) do
+  def get_user_attributes!(token) do
     {:ok, %{body: user}} = OAuth2.AccessToken.get(token, "https://www.googleapis.com/plus/v1/people/me/openIdConnect")
     %{name: user["name"], email: user["email"], picture: user["picture"]}
   end
