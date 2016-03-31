@@ -12,6 +12,7 @@ defmodule Aniquest.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug Aniquest.TokenAuth, repo: Aniquest.Repo
   end
 
   scope "/", Aniquest do
