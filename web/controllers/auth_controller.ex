@@ -1,5 +1,6 @@
 defmodule Aniquest.AuthController do
   use Aniquest.Web, :controller
+  alias Aniquest.User
 
   def index(conn, _params) do
     authorize_url = Aniquest.GoogleOauth.authorize_url!(scope: "https://www.googleapis.com/auth/userinfo.email")
@@ -14,18 +15,24 @@ defmodule Aniquest.AuthController do
   end
 
   def callback(conn, %{"code" => code}) do
-    # Exchange an auth code for an access token
     token = Aniquest.GoogleOauth.get_token!(code: code)
-
-    # Request the user's data with the access token
-    user = Aniquest.GoogleOauth.get_user!(token)
-
-    IO.puts "USERRRRRRR"
-    IO.inspect user
-    IO.puts "USERRRRRRR"
+    user_attributes = Aniquest.GoogleOauth.get_user_attributes!(token)
+    user = find_or_create_user(user_attributes)
 
     conn
-    |> put_session(:current_user, user)
-    |> redirect(to: "/")
+    |> put_session(:user_id, user.id)
+    |> redirect(to: user_path(conn, :show, user))
+  end
+
+  defp find_or_create_user(attributes) do
+    case Repo.get_by(User, email: attributes[:email]) do
+      nil ->
+        changeset = User.registration_changeset(%User{}, attributes)
+        {:ok, user} = Repo.insert(changeset)
+        user
+
+      user ->
+        user
+    end
   end
 end

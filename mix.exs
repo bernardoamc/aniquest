@@ -19,7 +19,7 @@ defmodule Aniquest.Mixfile do
   def application do
     [mod: {Aniquest, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :httpoison]]
+                    :phoenix_ecto, :postgrex, :httpoison, :timex, :timex_ecto]]
   end
 
   # Specifies which paths to compile per environment.
@@ -37,7 +37,9 @@ defmodule Aniquest.Mixfile do
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
-     {:oauth2, "~> 0.5"}]
+     {:oauth2, "~> 0.5"},
+     {:timex, "~> 2.1"},
+     {:timex_ecto, "~> 1.0"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

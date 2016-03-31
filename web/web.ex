@@ -36,6 +36,7 @@ defmodule Aniquest.Web do
 
       import Aniquest.Router.Helpers
       import Aniquest.Gettext
+      import Aniquest.UserAuth, only: [authenticate_user: 2]
     end
   end
 
