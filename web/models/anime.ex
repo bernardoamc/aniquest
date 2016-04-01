@@ -22,5 +22,23 @@ defmodule Aniquest.Anime do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> normalize_genres
+    |> validate_genres
+  end
+
+  defp normalize_genres(changeset) do
+    if genres = get_change(changeset, :genres) do
+      put_change(changeset, :genres, Enum.map(genres, &Aniquest.Genre.normalize_genre(&1)))
+    else
+      changeset
+    end
+  end
+
+  defp validate_genres(changeset) do
+    if genres = get_change(changeset, :genres) do
+      Aniquest.Genre.validate_options(changeset, genres)
+    else
+      changeset
+    end
   end
 end
