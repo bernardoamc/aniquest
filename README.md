@@ -12,10 +12,10 @@ Example APP using Oauth2 and Token Authentication for APIs
 
 You will need to supply the following environment variables so OAuth2 can work:
 
-  * CLIENT_ID
-  * CLIENT_SECRET
-  * REDIRECT_URI
+  * `CLIENT_ID`
+  * `CLIENT_SECRET`
+  * `REDIRECT_URI`
 
 ### Making a request to the API
 
-`curl -H "Authorization: token your_token_here"http://localhost:4000/api/v1/animes`
+`curl -H "Authorization: token your_token_here" http://localhost:4000/api/v1/animes`
