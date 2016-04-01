@@ -15,4 +15,11 @@ defmodule Aniquest.AnimeTest do
     changeset = Anime.changeset(%Anime{}, @invalid_attrs)
     refute changeset.valid?
   end
+
+  test "changeset with invalid genres" do
+    invalid_params = Map.put(@valid_attrs, :genres, ["invalid_genre", "sports"])
+
+    changeset = Anime.changeset(%Anime{}, invalid_params)
+    refute changeset.valid?
+  end
 end

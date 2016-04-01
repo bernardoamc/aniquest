@@ -2,12 +2,23 @@ defmodule Aniquest.API.V1.AnimeControllerTest do
   use Aniquest.ConnCase
 
   alias Aniquest.Anime
+  alias Aniquest.User
 
   @valid_attrs %{genres: ["action", "seinen"], plot: "Hero goes bald", title_english: "Onepunch-Man", title_romaji: "Onepunchman"}
   @invalid_attrs %{}
 
   setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+    changeset = User.registration_changeset(
+      %User{}, %{name: "Tester", email: "test@gmail.com", picture: "test.png"})
+
+    user = Repo.insert!(changeset)
+
+    conn =
+      conn
+      |> put_req_header("accept", "application/json")
+      |> put_req_header("authorization", "token #{user.token}")
+
+    {:ok, conn: conn}
   end
 
   test "lists all entries on index", %{conn: conn} do
